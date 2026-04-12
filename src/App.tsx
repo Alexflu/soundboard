@@ -28,8 +28,99 @@ export default function App() {
         toast.error('Cannot play random sound');
         console.error(e);
       })
+  
   );
+  globalShortcut?.register('Control+F2', () =>
+  soundboardDomain
+    .playLocalSoundByIndex(0)
+    .then((player) => {
+      if (player) registerSound(() => player.stop());
+      return '';
+    })
+    .catch((e) => {
+      toast.error('Cannot play sound in slot 1');
+      console.error(e);
+    })
+);
 
+  globalShortcut?.register('Control+F3', () =>
+    soundboardDomain
+      .playLocalSoundByIndex(1)
+      .then((player) => {
+        if (player) registerSound(() => player.stop());
+        return '';
+      })
+      .catch((e) => {
+        toast.error('Cannot play sound in slot 2');
+        console.error(e);
+      })
+  );
+  
+  globalShortcut?.register('Control+F4', () =>
+    soundboardDomain
+      .playLocalSoundByIndex(2)
+      .then((player) => {
+        if (player) registerSound(() => player.stop());
+        return '';
+      })
+      .catch((e) => {
+        toast.error('Cannot play sound in slot 3');
+        console.error(e);
+      })
+  );
+  
+  globalShortcut?.register('Control+F5', () =>
+    soundboardDomain
+      .playLocalSoundByIndex(3)
+      .then((player) => {
+        if (player) registerSound(() => player.stop());
+        return '';
+      })
+      .catch((e) => {
+        toast.error('Cannot play sound in slot 4');
+        console.error(e);
+      })
+  );
+  
+  globalShortcut?.register('Control+F6', () =>
+    soundboardDomain
+      .playLocalSoundByIndex(4)
+      .then((player) => {
+        if (player) registerSound(() => player.stop());
+        return '';
+      })
+      .catch((e) => {
+        toast.error('Cannot play sound in slot 5');
+        console.error(e);
+      })
+  );
+  
+  globalShortcut?.register('Control+F7', () =>
+    soundboardDomain
+      .playLocalSoundByIndex(5)
+      .then((player) => {
+        if (player) registerSound(() => player.stop());
+        return '';
+      })
+      .catch((e) => {
+        toast.error('Cannot play sound in slot 6');
+        console.error(e);
+      })
+  );
+  
+  globalShortcut?.register('Control+F8', () =>
+    soundboardDomain
+      .playLocalSoundByIndex(6)
+      .then((player) => {
+        if (player) registerSound(() => player.stop());
+        return '';
+      })
+      .catch((e) => {
+        toast.error('Cannot play sound in slot 7');
+        console.error(e);
+      })
+  );
+  
   return (
     <Router>
       <div className="app-view">
