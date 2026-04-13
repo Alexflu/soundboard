@@ -71,14 +71,13 @@ export class SoundboardDomain {
     return null;
   }
   
-  async playLocalSoundByIndex(index: number): Promise<Player | null> {
+  async playLocalSoundByIndex(
+    index: number,
+    filters: Filters
+  ): Promise<Player | null> {
     const userPreferences = this.userPreferenceAdapter.getUserPreferences();
-
-    const localSounds = this.localSoundAdapter.getSounds(
-      userPreferences.pathToSoundsJson
-  );
-
-  const sound = localSounds[index];
+    const sounds = await this.getSounds(filters);
+    const sound = sounds[index];;
 
   if (sound) {
     const audioOutput = userPreferences.audioOutput.id;

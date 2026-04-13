@@ -11,9 +11,11 @@ import soundboardDomain from '../../domain/SoundboardDomain';
 const SoundsView = ({
   stopAllSounds,
   registerSound,
+  setGlobalFilters,
 }: {
   stopAllSounds: (() => void)[];
   registerSound: (stopSound: () => void) => void;
+  setGlobalFilters: (filters: Filters) => void;
 }) => {
   const [sounds, setSounds] = useState([] as Sound[]);
   const [filters, setFilters] = useState(new Filters(''));
@@ -27,8 +29,11 @@ const SoundsView = ({
         toast.error('Cannot get sounds');
       });
   };
-  const onFilterUpdated = (newFilters: Filters) =>
-    setFilters(Filters.fromFilters(newFilters));
+  const onFilterUpdated = (newFilters: Filters) => {
+    const updated = Filters.fromFilters(newFilters);
+    setFilters(updated);
+    setGlobalFilters(updated);
+};
   const stopAll = () => stopAllSounds.forEach((stopSound) => stopSound());
 
   useEffect(() => reloadSounds(), [filters]);
