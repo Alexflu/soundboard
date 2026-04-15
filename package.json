@@ -9,11 +9,12 @@
     "rebuild": "electron-rebuild --parallel --types prod,dev,optional --module-dir src",
     "lint": "cross-env NODE_ENV=development eslint . --cache --ext .js,.jsx,.ts,.tsx",
     "package": "rm -rf src/dist && yarn build && electron-builder build --publish never",
-    "postinstall": "node -r @babel/register .erb/scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn cross-env NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.babel.js && opencollective-postinstall && yarn-deduplicate yarn.lock",
-    "start": "node -r @babel/register ./.erb/scripts/CheckPortInUse.js && cross-env yarn start:renderer",
+    "postinstall": "node -r @babel/register .erb/scripts/CheckNativeDep.js && electron-builder install-app-deps && cross-env NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.babel.js && opencollective-postinstall && yarn-deduplicate yarn.lock",
+    "start": "node -r @babel/register ./.erb/scripts/CheckPortInUse.js && cross-env NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider webpack serve --config ./.erb/configs/webpack.config.renderer.dev.babel.js",
     "start:main": "cross-env NODE_ENV=development electron -r ./.erb/scripts/BabelRegister ./src/main.dev.ts",
     "start:renderer": "cross-env NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider webpack serve --config ./.erb/configs/webpack.config.renderer.dev.babel.js",
-    "test": "jest"
+    "test": "jest",
+    "build-dll": "cross-env NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider webpack --config ./.erb/configs/webpack.config.renderer.dev.dll.babel.js"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
