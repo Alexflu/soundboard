@@ -6,13 +6,12 @@
   "main": "./main.prod.js",
   "scripts": {
     "electron-rebuild": "node -r ../.erb/scripts/BabelRegister.js ../.erb/scripts/ElectronRebuild.js",
-    "postinstall": "yarn electron-rebuild"
+    "postinstall": "node -r ../.erb/scripts/BabelRegister.js ../.erb/scripts/ElectronRebuild.js"
   },
   "author": {
     "name": "Glecun",
     "email": "gregoire.lecun@gmail.com",
     "url": "https://github.com/Glecun"
   },
-  "license": "MIT",
-  "dependencies": {}
+  "license": "MIT"
 }

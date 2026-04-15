@@ -24,6 +24,14 @@ const requiredByDLLConfig = module.parent.filename.includes(
   'webpack.config.renderer.dev.dll'
 );
 
+const userAgent = process.env.npm_config_user_agent || '';
+const packageManager = userAgent.includes('yarn') ? 'yarn' : 'npm';
+const packageManagerRun = (scriptName) =>
+  packageManager === 'yarn' ? [scriptName] : ['run', scriptName];
+const packageManagerCommand = (scriptName) =>
+  [packageManager].concat(packageManagerRun(scriptName)).join(' ');
+const spawnWithShell = process.platform === 'win32';
+
 /**
  * Warn if the DLL is not built
  */
@@ -33,7 +41,7 @@ if (!requiredByDLLConfig && !(fs.existsSync(dllDir) && fs.existsSync(manifest)))
       'The DLL files are missing. Sit back while we build them for you with "yarn build-dll"'
     )
   );
-  execSync('yarn build-dll');
+  execSync(packageManagerCommand('build-dll'), { stdio: 'inherit', shell: spawnWithShell });
 }
 
 export default merge(baseConfig, {
@@ -274,9 +282,10 @@ export default merge(baseConfig, {
     },
     before() {
       console.log('Starting Main Process...');
-      spawn('yarn', ['start:main'], {
+      spawn(packageManager, packageManagerRun('start:main'), {
         env: mainProcessEnv,
         stdio: 'inherit',
+        shell: spawnWithShell,
       })
         .on('close', (code) => process.exit(code))
         .on('error', (spawnError) => console.error(spawnError));
